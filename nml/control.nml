@@ -3,11 +3,11 @@
  !-------------------------------------------------------
  ! model configuration 
  !-------------------------------------------------------
- flag_co2         = F        ! use interactive co2?
- flag_ch4         = F        ! use interactive ch4?
- flag_n2o         = F        ! use interactive n2o?
+ flag_co2         = T        ! use interactive co2?
+ flag_ch4         = T        ! use interactive ch4?
+ flag_n2o         = T        ! use interactive n2o?
  flag_atm         = T        ! use atmosphere model?
- flag_ocn         = T        ! use ocean model?
+ flag_ocn         = F        ! use ocean model?
  flag_bgc         = F        ! use ocean biogeochemistry model?
  flag_sic         = T        ! use sea ice model?
  flag_lnd         = T        ! use land model?
@@ -409,9 +409,9 @@
  !-------------------------------------------------------
  ! conservation checks
  !-------------------------------------------------------
- check_water  = false       ! check for water conservation?
- check_energy = false       ! check for energy conservation?
- check_carbon = false       ! check for carbon conservation?
+ check_water  = true       ! check for water conservation?
+ check_energy = true       ! check for energy conservation?
+ check_carbon = true       ! check for carbon conservation?
 
  l_debug_main_loop = false  ! debug main loop?
  l_write_timer = false      ! write annual simulation times of the different model components?
