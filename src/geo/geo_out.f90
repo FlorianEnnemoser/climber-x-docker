@@ -64,8 +64,13 @@ contains
     integer :: ncid, i
     real(wp) :: empty_time(0)
 
+<<<<<<< HEAD
     real :: lat_coord(1) = [1.0]
     real :: lon_coord(1) = [1.0]
+=======
+    real(dp) :: lat_coord(1) = [1.0d0]
+    real(dp) :: lon_coord(1) = [1.0d0]
+>>>>>>> df778f0f08349e72b3a84e5a4d78c98f109289be
 
     nout = 0
 
