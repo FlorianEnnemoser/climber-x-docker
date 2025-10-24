@@ -64,6 +64,8 @@ contains
     integer :: ncid, i
     real(wp) :: empty_time(0)
 
+    real(dp) :: lat_coord(1) = [1.0d0]
+    real(dp) :: lon_coord(1) = [1.0d0]
 
     nout = 0
 
@@ -76,8 +78,8 @@ contains
     call nc_create(fnm)
     call nc_write_dim(fnm, dim_time, x=empty_time, axis="t", units="years BP", &
     unlimited=.TRUE.)
-    call nc_write_dim(fnm,dim_lat, x=1, axis="y", units="1")
-    call nc_write_dim(fnm,dim_lon, x=1, axis="x", units="1")
+    call nc_write_dim(fnm,dim_lat, x=lat_coord, axis="y", units="1")
+    call nc_write_dim(fnm,dim_lon, x=lon_coord, axis="x", units="1")
 
     fnm = trim(out_dir)//"/geo.nc"
 
