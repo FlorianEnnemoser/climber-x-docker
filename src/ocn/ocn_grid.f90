@@ -385,12 +385,16 @@ contains
         tv1 = abs(zw(k-1)+z_mix_brines)
       endif
     enddo
+    print *,'k_mix_brines',k_mix_brines
+    print *,'depth brines',zw(k_mix_brines)
 
     !-------------------------------------------------------------
     ! set bathymetry
     !-------------------------------------------------------------
 
     ! first derive 'potential' bathymetry (k1_pot)
+    print *,'Setting bathymetry'
+
     topo = topo_in
 
     ! smooth real bathymetry
@@ -423,6 +427,7 @@ contains
       
 
     ! truncate to depth levels and get index of bottom layer in k1_pot
+    print *,'Setting bathymetry - truncate to depth level'
     call truncate_topo(topo,k1_pot)
 
     ! minimum depth <-> shelf depth
@@ -489,6 +494,7 @@ contains
       enddo
     enddo
 
+    print *,'Copy to grid type'
     ! copy to grid type
     grid%ni = maxi
     grid%nj = maxj
@@ -506,6 +512,8 @@ contains
     grid%ocn_area = ocn_area
     grid%ocn_vol  = ocn_vol
 
+    
+
     ocn_area_tot = 0._wp
     do j=1,maxj
       do i=1,maxi
@@ -519,7 +527,11 @@ contains
     enddo
     grid%ocn_area_tot = ocn_area_tot
 
+    print *,'Finished copy to grid.'
+
     ! compute total ocean volume for new surface area
+    print *,'Compute total ocean volume.'
+
     ocn_vol_tot = 0._wp
     do k=1,maxk
       do j=1,maxj
@@ -533,6 +545,8 @@ contains
     grid%ocn_vol_tot = ocn_vol_tot
 
     ! find index of island grid cells
+    print *,'Finding index of island grid cells.'
+
     if (i_isl.eq.2) then
       do n=1,n_isl
         i_idx_isl(n) = 0
@@ -553,7 +567,7 @@ contains
         enddo
       enddo
     endif
-
+    print *,'Finished Ocean Grid Init'
     return
 
   end subroutine ocn_grid_init

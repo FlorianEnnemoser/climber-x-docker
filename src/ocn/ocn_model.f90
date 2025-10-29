@@ -536,7 +536,8 @@ contains
     ! setup grid 
     !------------------------------------------------------------------------
     call ocn_grid_init(f_ocn,z_ocn,z_ocn_max,mask_coast,ocn_vol_tot_real,ocn%grid)
-
+    
+    print *,'Ocn Model: finished calling Ocean Grid Init'
     !------------------------------------------------------------------------
     ! number and index of tracers
     !------------------------------------------------------------------------
@@ -566,13 +567,19 @@ contains
       i_cfc12 = n_tracers_ocn
     endif
 
+    print *,'Ocn Model: tracers finished'
+
     ! total number of tracers, including tracers for biogeochemistry
     n_tracers_tot = n_tracers_ocn + n_tracers_bgc
 
     !------------------------------------------------------------------------
     ! allocate 
     !------------------------------------------------------------------------
+    print *,'Ocn Model: started allocate'
+    
     call ocn_alloc(ocn, l_daily_input_save)
+    
+    print *,'Ocn Model: finished allocate'
 
     ! default is to transport all tracers, can be changed by bgc
     ocn%l_tracers_trans = .true.
@@ -617,6 +624,7 @@ contains
     ! restart 
     !------------------------------------------------------------------------
     if (ocn_restart) then
+      print *,'Ocn Model: Setting initial conditions- RESTART'
 
       !------------------------------------------------------------------------
       ! read restart file
@@ -633,102 +641,102 @@ contains
       endif
 
     else  
-
       ! set initial conditions   
+      print *,'Ocn Model: Setting initial conditions'
 
       if (i_init.eq.1) then
-        ! set latitude dependence for initial temperature and uniform initial salinity values
+      ! set latitude dependence for initial temperature and uniform initial salinity values
 
-        !do k=1,maxk
-          do j=1,maxj
-            !do i=1,maxi
-              ocn%ts(:,j,:,1) = 30._wp*c(j)
-            !enddo
-          enddo
-        !enddo
-        ocn%ts(:,:,:,2) = saln0_const
+      !do k=1,maxk
+        do j=1,maxj
+          !do i=1,maxi
+            ocn%ts(:,j,:,1) = 30._wp*c(j)
+          !enddo
+        enddo
+      !enddo
+      ocn%ts(:,:,:,2) = saln0_const
 
       else if (i_init.eq.2) then
-        ! initialize using present day observations
+      ! initialize using present day observations
 
-        ocn%ts(:,:,:,1) = 0._wp
-        ocn%ts(:,:,:,2) = saln0_const
+      ocn%ts(:,:,:,1) = 0._wp
+      ocn%ts(:,:,:,2) = saln0_const
 
-        ! initialize 3D temperature and salinity from World Ocean Atlas 2013 data, annual mean
-        fnm = "input/WOA13_5x5.nc"
-        ni = nc_size(fnm,"lon")
-        nj = nc_size(fnm,"lat")
-        nk = nc_size(fnm,"depth")
-        allocate(tmp_depth(nk))
-        call nc_read(fnm,"depth",tmp_depth,start=[1],count=[nk])
-        allocate(tmp(ni,nj,nk))
-        ! temperature
-        call nc_read(fnm,"t",tmp,start=[1,1,1,13],count=[ni,nj,nk,1])
-        do k=1,maxk
-          do j=1,maxj
-            do i=1,maxi
-              if (k.ge.k1(i,j)) then
-                tmp_sum = sum(tmp(i,j,:), tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k))
-                tmp_cnt = count(tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k)) 
-                if (tmp_cnt.gt.0._wp) then
-                  ocn%ts(i,j,k,1) = tmp_sum/tmp_cnt + 0.1_wp/1000._wp*zro(k) ! convert to potential temperature using 'lapse rate' of 0.1 K/km
-                else
-                  ocn%ts(i,j,k,1) = 0._wp
-                endif
-              else ! outside of domain
+      ! initialize 3D temperature and salinity from World Ocean Atlas 2013 data, annual mean
+      fnm = "input/WOA13_5x5.nc"
+      ni = nc_size(fnm,"lon")
+      nj = nc_size(fnm,"lat")
+      nk = nc_size(fnm,"depth")
+      allocate(tmp_depth(nk))
+      call nc_read(fnm,"depth",tmp_depth,start=[1],count=[nk])
+      allocate(tmp(ni,nj,nk))
+      ! temperature
+      call nc_read(fnm,"t",tmp,start=[1,1,1,13],count=[ni,nj,nk,1])
+      do k=1,maxk
+        do j=1,maxj
+          do i=1,maxi
+            if (k.ge.k1(i,j)) then
+              tmp_sum = sum(tmp(i,j,:), tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k))
+              tmp_cnt = count(tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k)) 
+              if (tmp_cnt.gt.0._wp) then
+                ocn%ts(i,j,k,1) = tmp_sum/tmp_cnt + 0.1_wp/1000._wp*zro(k) ! convert to potential temperature using 'lapse rate' of 0.1 K/km
+              else
                 ocn%ts(i,j,k,1) = 0._wp
               endif
-            enddo
+            else ! outside of domain
+              ocn%ts(i,j,k,1) = 0._wp
+            endif
           enddo
         enddo
-        ! salinity
-        call nc_read(fnm,"s",tmp,start=[1,1,1,13],count=[ni,nj,nk,1])
-        do k=1,maxk
-          do j=1,maxj
-            do i=1,maxi
-              if (k.ge.k1(i,j)) then
-                tmp_sum = sum(tmp(i,j,:), tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k))
-                tmp_cnt = count(tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k))
-                if (tmp_cnt.gt.0._wp) then
-                  ocn%ts(i,j,k,2) = tmp_sum/tmp_cnt
-                else
-                  ocn%ts(i,j,k,2) = saln0_const
-                endif
-              else ! outside of domain
+      enddo
+      ! salinity
+      call nc_read(fnm,"s",tmp,start=[1,1,1,13],count=[ni,nj,nk,1])
+      do k=1,maxk
+        do j=1,maxj
+          do i=1,maxi
+            if (k.ge.k1(i,j)) then
+              tmp_sum = sum(tmp(i,j,:), tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k))
+              tmp_cnt = count(tmp(i,j,:)>-990. .and. tmp_depth<-zw(k-1) .and. tmp_depth>=-zw(k))
+              if (tmp_cnt.gt.0._wp) then
+                ocn%ts(i,j,k,2) = tmp_sum/tmp_cnt
+              else
                 ocn%ts(i,j,k,2) = saln0_const
               endif
-            enddo
+            else ! outside of domain
+              ocn%ts(i,j,k,2) = saln0_const
+            endif
           enddo
         enddo
+      enddo
 
       else if (i_init.eq.3) then
-         ! initial conditions for Eocene following Lunt et al, GMD, 2017, sec 4.2.6
-         ! The ocean should be initialized as stationary,
-         ! with no initial sea ice, and a zonally symmetric
-         ! temperature (T, \degC) and globally constant
-         ! salinity (S, psu) distribution given by the following:
-         ! T[\degC] = { (\frac{5000-z}{5000} 25\cos(\phi)) + 15 if z <= 5000m
-         !            { 15                                      if z >  5000m
-         ! S[psu] = 34.7
-         ! where \phi is latitude, and z is depth of the ocean (metres below surface)
-         ! NOTE: zro(k) is negative with depth!
-         do k=1,maxk
-            do j=1,maxj
-               !do i=1,maxi
-                  if (zro(k).ge.-5000) then
-                     !ocn%ts(:,j,k,1) = ((5000.0_wp+zro(k))/5000.0_wp)*25.0_wp*c(j) + 15.0_wp
-                     ocn%ts(:,j,k,1) = ((5000.0_wp+zro(k))/5000.0_wp)*init3_peak*c(j) + init3_bg
-                  else
-                     !ocn%ts(:,j,k,1) = 15.0_wp
-                     ocn%ts(:,j,k,1) = init3_bg
-                  endif
-               !enddo
-            enddo
-         enddo
-         ocn%ts(:,:,:,2) = saln0_const
+        ! initial conditions for Eocene following Lunt et al, GMD, 2017, sec 4.2.6
+        ! The ocean should be initialized as stationary,
+        ! with no initial sea ice, and a zonally symmetric
+        ! temperature (T, \degC) and globally constant
+        ! salinity (S, psu) distribution given by the following:
+        ! T[\degC] = { (\frac{5000-z}{5000} 25\cos(\phi)) + 15 if z <= 5000m
+        !            { 15                                      if z >  5000m
+        ! S[psu] = 34.7
+        ! where \phi is latitude, and z is depth of the ocean (metres below surface)
+        ! NOTE: zro(k) is negative with depth!
+        do k=1,maxk
+          do j=1,maxj
+              !do i=1,maxi
+                if (zro(k).ge.-5000) then
+                    !ocn%ts(:,j,k,1) = ((5000.0_wp+zro(k))/5000.0_wp)*25.0_wp*c(j) + 15.0_wp
+                    ocn%ts(:,j,k,1) = ((5000.0_wp+zro(k))/5000.0_wp)*init3_peak*c(j) + init3_bg
+                else
+                    !ocn%ts(:,j,k,1) = 15.0_wp
+                    ocn%ts(:,j,k,1) = init3_bg
+                endif
+              !enddo
+          enddo
+        enddo
+        ocn%ts(:,:,:,2) = saln0_const
 
       else
-         print *,'Error: unknow value for &ocn_par/i_init', i_init
+        print *,'Error: unknow value for &ocn_par/i_init', i_init
       endif
 
       ! initialize velocity to zero
@@ -762,6 +770,8 @@ contains
 
     endif
 
+    print *,'Ocn Model: Setting Salinity Options'
+
     if (i_saln0.eq.1) then
       ocn%saln0 = saln0_const
     else if (i_saln0.eq.2) then
@@ -772,6 +782,8 @@ contains
     ocn%sst_max = ocn%ts(:,:,maxk,1)+1._wp
 
     ! compute density
+    print *,'Ocn Model: compute density'
+
     do i=1,maxi
       do j=1,maxj
         do k=1,maxk
@@ -781,6 +793,7 @@ contains
     enddo
 
     ! convection arrays
+    print *,'Ocn Model: convection arrays'
     do i=1,maxi
       do j=1,maxj
         ocn%nconv(i,j) = 0
@@ -792,26 +805,46 @@ contains
     enddo
 
     ! initialize freshwater fluxes
+    print *,'Ocn Model: init freshwater fluxes'
+
+    print *,'Ocn Model: init freshwater fluxes: p_e_sic'
     ocn%p_e_sic     = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: fw_brines'
     ocn%fw_brines   = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: runoff'
     ocn%runoff      = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: runoff_veg'
     ocn%runoff_veg  = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: runoff_ice'
     ocn%runoff_ice  = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: runoff_lake'
     ocn%runoff_lake = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: melt_ice'
     ocn%melt_ice    = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: calving'
     ocn%calving     = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: bmelt_grd'
     ocn%bmelt_grd   = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: bmelt_flt'
     ocn%bmelt_flt   = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: bmelt'
     ocn%bmelt       = 0._wp 
+    print *,'Ocn Model: init freshwater fluxes: fw_dhdt_ice'
     ocn%fw_dhdt_ice = 0._wp 
 
     ! initialize variables for frictional geostrophic balance equation
+    print *,'Ocn Model: calling momentum init'
+
     call momentum_init
 
     ! initialize transport variables
+    print *,'Ocn Model: calling transport init'
+
     call transport_init
 
     ! initialize freshwater hosing
+    print *,'Ocn Model: init freshwater hosing'
+
     if (l_hosing) then
       call hosing_init(f_ocn,real(year,wp))
       ocn%hosing = hosing_ini
@@ -821,13 +854,19 @@ contains
     endif
 
     ! initialize freshwater flux correction
+    print *,'Ocn Model: freshwater flux correction'
+
     if (l_flux_adj_atl .or. l_flux_adj_ant .or. l_flux_adj_pac) then
+      print *,'Ocn Model: calling freshwater flux correction'
       call flux_adj_init(f_ocn)
     else
+      print *,'Ocn Model: setting freshwater flux correction to 0.'
       ocn%fw_flux_adj = 0._wp
     endif
 
     ! initialize noise
+    print *,'Ocn Model: init noise'
+
     if (l_noise_fw .or. l_noise_flx) then
       call noise_init(f_ocn)
     endif
@@ -840,10 +879,13 @@ contains
       ocn%noise_flx = 0._wp
     endif
 
+    print *,'Ocn Model: setting melt_ice'
     ocn%melt_ice(:,:) = 0._wp
 
+    print *,'Ocn Model: setting amoc'
     ocn%amoc = 0._wp
 
+    print *,'Ocn Model: A_bering'
     ocn%A_bering = A_bering
     ocn%bering_tf = 0._wp
     ocn%bering_fw = 0._wp
@@ -903,6 +945,7 @@ contains
     allocate(ocn%bmelt(maxi,maxj))
     allocate(ocn%bmelt_grd(maxi,maxj))
     allocate(ocn%bmelt_flt(maxi,maxj))
+    allocate(ocn%fw_dhdt_ice(maxi,maxj))
 
     allocate(ocn%u(3,0:maxi,0:maxj,maxk))
     allocate(ocn%ub(2,0:maxi+1,0:maxj))
