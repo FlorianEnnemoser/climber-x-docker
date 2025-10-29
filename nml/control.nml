@@ -7,7 +7,7 @@
  flag_ch4         = T        ! use interactive ch4?
  flag_n2o         = T        ! use interactive n2o?
  flag_atm         = T        ! use atmosphere model?
- flag_ocn         = F        ! use ocean model?
+ flag_ocn         = T        ! use ocean model?
  flag_bgc         = F        ! use ocean biogeochemistry model?
  flag_sic         = T        ! use sea ice model?
  flag_lnd         = T        ! use land model?
@@ -16,7 +16,7 @@
  flag_geo         = F        ! use interactive geography/topography?
  flag_smb         = F        ! use surface mass balance model?
  flag_bmb         = F        ! use basal mass balance model?
- flag_ice         = F        ! use ice sheet model?
+ flag_ice         = T        ! use ice sheet model?
  ice_model_name   = 'yelmo'  ! select which ice sheet model to use, 'sico' or 'yelmo'
  ice_domain_name  = 'NH-32KM' !'ANT-32KM'      ! name of ice sheet domanin(s) to be used
 
@@ -388,11 +388,11 @@
  co2_restart = false       ! start from saved atmospheric co2?
  ch4_restart = false       ! start from saved atmospheric ch4?
  n2o_restart = false       ! start from saved atmospheric n2o?
- atm_restart = true        ! start from saved atmosphere state?
- lnd_restart = true        ! start from saved land state?
- ocn_restart = true        ! start from saved ocean state?
- sic_restart = true        ! start from saved sea ice state?
- bgc_restart = true        ! start from saved ocean biogeochemistry state?
+ atm_restart = false        ! start from saved atmosphere state?
+ lnd_restart = false        ! start from saved land state?
+ ocn_restart = false        ! start from saved ocean state?
+ sic_restart = false        ! start from saved sea ice state?
+ bgc_restart = false        ! start from saved ocean biogeochemistry state?
  geo_restart = false       ! start from saved geo state?
  ice_restart = false       ! start from saved ice state?
  smb_restart = false       ! start form saved smb state?
