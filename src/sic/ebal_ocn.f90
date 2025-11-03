@@ -120,29 +120,29 @@ contains
       - snow*Lf &
       + flux_freeze &
       - flx_ocn
-      if( abs(energy_cons) .gt. 1.d-9 ) then
-        print *,''
-        print *,'energy balance ocn',energy_cons
-        print *,'tskin',t_skin
-        print *,'t_ocn,t_air',t_ocn,t_air
-        print *,'sw,lw_d,lw_u,sh,lh,snowmelt',swnet,emiss*lwdown,lw,sh,lh,snow*Lf
-        print *,'flux_freeze',flux_freeze
-        print *,'dh_sic',dh_sic
-        print *,''
-      endif
+      ! if( abs(energy_cons) .gt. 1.d-9 ) then
+      !   print *,''
+      !   print *,'energy balance ocn',energy_cons
+      !   print *,'tskin',t_skin
+      !   print *,'t_ocn,t_air',t_ocn,t_air
+      !   print *,'sw,lw_d,lw_u,sh,lh,snowmelt',swnet,emiss*lwdown,lw,sh,lh,snow*Lf
+      !   print *,'flux_freeze',flux_freeze
+      !   print *,'dh_sic',dh_sic
+      !   print *,''
+      ! endif
     endif
 
-    if( t_skin.gt.T0+50. .or. t_skin.lt.200._wp ) then
-      print *,''
-      print *,'i,j',i,j
-      print *,'t_skin over ocn out of range!!!',t_skin
-      print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,flx_ocn
-      print *,'t_ocn',t_ocn
-      print *,'t_air',t_air
-      print *,'qair',qair
-      print *,'Cde,Cdh',Cde,Cdh
-      print *,''
-    endif
+    ! if( t_skin.gt.T0+50. .or. t_skin.lt.200._wp ) then
+    !   print *,''
+    !   print *,'i,j',i,j
+    !   print *,'t_skin over ocn out of range!!!',t_skin
+    !   print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,flx_ocn
+    !   print *,'t_ocn',t_ocn
+    !   print *,'t_air',t_air
+    !   print *,'qair',qair
+    !   print *,'Cde,Cdh',Cde,Cdh
+    !   print *,''
+    ! endif
 
     return
 

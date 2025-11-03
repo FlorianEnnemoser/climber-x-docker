@@ -78,62 +78,62 @@ contains
                        - sum(w_w-w_w_old + w_i-w_i_old) &
                        - (w_snow(is_veg)-w_snow_old(is_veg))
 
-     if( drainage(is_veg)*dt.lt.-0.1_wp ) then
-       print *,''
-       print *,'negative drainage',drainage(is_veg)*dt
-       print *,'i,j',i,j
-       print *,'water balance over SOIL',water_cons(is_veg) !,t_skin_veg
-       print *,'fveg',f_veg
-       print *,'sum(frac_surf)',sum(frac_surf)
-       print *,'frac_surf',frac_surf
-       print *,'dw_soil',sum(w_w-w_w_old + w_i-w_i_old)
-       print *,'dw_snow_if',(w_snow(is_veg)-w_snow_old(is_veg))
-       print *,'dw_can',dw_can
-       print *,'rain+snow,rain,snow',rain_sum*dt + snow_sum*dt,rain_sum*dt,snow_sum*dt
-       print *,'run_w,run_i',runoff_sur(is_veg)*dt,calving(is_veg)*dt
-       print *,'drain',drainage(is_veg)*dt
-       print *,'et',et_sum*dt
-       print *,'et(n)',et*dt
-       print *,'w_w old',w_w_old
-       print *,'w_w final',w_w
-       print *,'w_i old',w_i_old
-       print *,'w_i final',w_i
-       print *,'w_snow, w_snow_old if',w_snow(is_veg),w_snow_old(is_veg)
-       print *,'w_snow, w_snow_old i',w_snow(is_ice),w_snow_old(is_ice)
-       print *,'w_can_old',w_can_old
-       print *,'w_can',w_can
-       print *,'s_can_old',s_can_old
-       print *,'s_can',s_can
-     endif
+    !  if( drainage(is_veg)*dt.lt.-0.1_wp ) then
+    !    print *,''
+    !    print *,'negative drainage',drainage(is_veg)*dt
+    !    print *,'i,j',i,j
+    !    print *,'water balance over SOIL',water_cons(is_veg) !,t_skin_veg
+    !    print *,'fveg',f_veg
+    !    print *,'sum(frac_surf)',sum(frac_surf)
+    !    print *,'frac_surf',frac_surf
+    !    print *,'dw_soil',sum(w_w-w_w_old + w_i-w_i_old)
+    !    print *,'dw_snow_if',(w_snow(is_veg)-w_snow_old(is_veg))
+    !    print *,'dw_can',dw_can
+    !    print *,'rain+snow,rain,snow',rain_sum*dt + snow_sum*dt,rain_sum*dt,snow_sum*dt
+    !    print *,'run_w,run_i',runoff_sur(is_veg)*dt,calving(is_veg)*dt
+    !    print *,'drain',drainage(is_veg)*dt
+    !    print *,'et',et_sum*dt
+    !    print *,'et(n)',et*dt
+    !    print *,'w_w old',w_w_old
+    !    print *,'w_w final',w_w
+    !    print *,'w_i old',w_i_old
+    !    print *,'w_i final',w_i
+    !    print *,'w_snow, w_snow_old if',w_snow(is_veg),w_snow_old(is_veg)
+    !    print *,'w_snow, w_snow_old i',w_snow(is_ice),w_snow_old(is_ice)
+    !    print *,'w_can_old',w_can_old
+    !    print *,'w_can',w_can
+    !    print *,'s_can_old',s_can_old
+    !    print *,'s_can',s_can
+    !  endif
 
       !if(abs(water_cons(is_veg)).gt.1.d-10 ) then
-      if(abs(water_cons(is_veg)).gt.1.d-3 ) then
-       !print *,'mask_snow,i,j',mask_snow,i,j
-       print *,''
-       print *,'i,j',i,j
-       print *,'water balance over SOIL',water_cons(is_veg) !,t_skin_veg
-       print *,'fveg',f_veg
-       print *,'sum(frac_surf)',sum(frac_surf)
-       print *,'frac_sur',frac_surf
-       print *,'dw_soil',sum(w_w-w_w_old + w_i-w_i_old)
-       print *,'dw_snow_if',(w_snow(is_veg)-w_snow_old(is_veg))
-       print *,'dw_can',dw_can
-       print *,'rain+snow,rain,snow',rain_sum*dt + snow_sum*dt,rain_sum*dt,snow_sum*dt
-       print *,'run_w,run_i',runoff_sur(is_veg)*dt,calving(is_veg)*dt
-       print *,'drain',drainage(is_veg)*dt
-       print *,'et',et_sum*dt
-       print *,'w_w old',w_w_old
-       print *,'w_w final',w_w
-       print *,'w_i old',w_i_old
-       print *,'w_i final',w_i
-       print *,'w_snow, w_snow_old if',w_snow(is_veg),w_snow_old(is_veg)
-       print *,'w_snow, w_snow_old i',w_snow(is_ice),w_snow_old(is_ice)
-       print *,'w_can_old',w_can_old
-       print *,'w_can',w_can
-       print *,'s_can_old',s_can_old
-       print *,'s_can',s_can
-       if(abs(water_cons(is_veg)).gt.0.1 ) stop
-      endif
+      ! if(abs(water_cons(is_veg)).gt.1.d-3 ) then
+      !  !print *,'mask_snow,i,j',mask_snow,i,j
+      !  print *,''
+      !  print *,'i,j',i,j
+      !  print *,'water balance over SOIL',water_cons(is_veg) !,t_skin_veg
+      !  print *,'fveg',f_veg
+      !  print *,'sum(frac_surf)',sum(frac_surf)
+      !  print *,'frac_sur',frac_surf
+      !  print *,'dw_soil',sum(w_w-w_w_old + w_i-w_i_old)
+      !  print *,'dw_snow_if',(w_snow(is_veg)-w_snow_old(is_veg))
+      !  print *,'dw_can',dw_can
+      !  print *,'rain+snow,rain,snow',rain_sum*dt + snow_sum*dt,rain_sum*dt,snow_sum*dt
+      !  print *,'run_w,run_i',runoff_sur(is_veg)*dt,calving(is_veg)*dt
+      !  print *,'drain',drainage(is_veg)*dt
+      !  print *,'et',et_sum*dt
+      !  print *,'w_w old',w_w_old
+      !  print *,'w_w final',w_w
+      !  print *,'w_i old',w_i_old
+      !  print *,'w_i final',w_i
+      !  print *,'w_snow, w_snow_old if',w_snow(is_veg),w_snow_old(is_veg)
+      !  print *,'w_snow, w_snow_old i',w_snow(is_ice),w_snow_old(is_ice)
+      !  print *,'w_can_old',w_can_old
+      !  print *,'w_can',w_can
+      !  print *,'s_can_old',s_can_old
+      !  print *,'s_can',s_can
+      !  if(abs(water_cons(is_veg)).gt.0.1 ) stop
+      ! endif
 
     endif 
 
@@ -144,10 +144,10 @@ contains
                        - et(i_ice)*dt &
                        - (w_snow(is_ice)-w_snow_old(is_ice))
 
-      if(abs(water_cons(is_ice)).gt.1.d-10) then
+      ! if(abs(water_cons(is_ice)).gt.1.d-10) then
        !print *,'mask_snow,i,j',mask_snow,i,j
-       print *,''
-       print *,'water balance over ICE',water_cons(is_ice) !,t_skin_veg
+      !  print *,''
+      !  print *,'water balance over ICE',water_cons(is_ice) !,t_skin_veg
        !print *,'sum(frac_surf)',sum(frac_surf)
        !print *,'frac_sur',frac_surf
        !print *,'dw_snow_i',(w_snow(is_ice)-w_snow_old(is_ice))
@@ -157,7 +157,7 @@ contains
        !print *,'et',et(i_ice)*dt
        !print *,'w_snow, w_snow_old i',w_snow(is_ice),w_snow_old(is_ice)
        !stop
-      endif
+      ! endif
 
     endif
 

@@ -370,7 +370,7 @@
  !-------------------------------------------------------
  ! output control
  !-------------------------------------------------------
- year_out_start = 1      ! year when to start to write output
+ year_out_start = 10      ! year when to start to write output
  nyout_cmn = 1       ! frequency of coupler output in years
  nyout_atm = 1       ! frequency of atmosphere output in years
  nyout_lnd = 30       ! frequency of land output in years

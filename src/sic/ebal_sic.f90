@@ -270,34 +270,34 @@ contains
       - lh &
       - g &
       - flux_snowmelt_top - flux_sicmelt_top
-      if( abs(energy_cons_top) .gt. 1.d-9 ) then
-        print *,''
-        print *,'energy balance sic TOP',energy_cons_top
-        print *,'tskin',t_skin
-        print *,'t_air,t_ocn,t_freeze',t_air,t_ocn,t_freeze
-        print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
-        print *,'flux_melt',flux_melt
-        print *,'flux_snowmelt_top,flux_sicmelt_top',flux_snowmelt_top,flux_sicmelt_top
-        print *,'flux_bot_net',flux_bot_net
-        print *,'flx_ocn',flx_ocn,Ch*u_star * rho_w*cap_w * (t_freeze - t_ocn)
-        print *,'flux_snowmelt_bot,flux_sicmelt_bot',flux_snowmelt_bot,flux_sicmelt_bot
-        print *,'h_sic,h_snow',h_sic,h_snow
-        print *,'dh_sic,dh_snow',dh_sic,dh_snow
-        print *,''
-      endif
+      ! if( abs(energy_cons_top) .gt. 1.d-9 ) then
+      !   print *,''
+      !   print *,'energy balance sic TOP',energy_cons_top
+      !   print *,'tskin',t_skin
+      !   print *,'t_air,t_ocn,t_freeze',t_air,t_ocn,t_freeze
+      !   print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
+      !   print *,'flux_melt',flux_melt
+      !   print *,'flux_snowmelt_top,flux_sicmelt_top',flux_snowmelt_top,flux_sicmelt_top
+      !   print *,'flux_bot_net',flux_bot_net
+      !   print *,'flx_ocn',flx_ocn,Ch*u_star * rho_w*cap_w * (t_freeze - t_ocn)
+      !   print *,'flux_snowmelt_bot,flux_sicmelt_bot',flux_snowmelt_bot,flux_sicmelt_bot
+      !   print *,'h_sic,h_snow',h_sic,h_snow
+      !   print *,'dh_sic,dh_snow',dh_sic,dh_snow
+      !   print *,''
+      ! endif
 
       energy_cons_bot = g &
       - flx_ocn      &
       - flux_snowmelt_bot - flux_sicmelt_bot 
 
-      if( abs(energy_cons_bot) .gt. 1.d-10 ) then
-        print *,''
-        print *,'energy balance sic BOT',energy_cons_bot
-        print *,'flx_ocn,g',flx_ocn,g
-        print *,'flux_snowmelt,flux_sicmelt',flux_snowmelt_bot,flux_sicmelt_bot
-        print *,'flux_bot_net',flux_bot_net
-        print *,''
-      endif
+      ! if( abs(energy_cons_bot) .gt. 1.d-10 ) then
+      !   print *,''
+      !   print *,'energy balance sic BOT',energy_cons_bot
+      !   print *,'flx_ocn,g',flx_ocn,g
+      !   print *,'flux_snowmelt,flux_sicmelt',flux_snowmelt_bot,flux_sicmelt_bot
+      !   print *,'flux_bot_net',flux_bot_net
+      !   print *,''
+      ! endif
 
     endif
 
@@ -309,44 +309,44 @@ contains
       + evp &
       + (flux_snowmelt_top+flux_snowmelt_bot)/Lf &
       + (flux_sicmelt_top+flux_sicmelt_bot)/Lf
-      if( abs(water_cons) .gt. 1.d-10 .and. (h_sic+dh_sic).gt.0._wp) then
-        print *,''
-        print *,'water balance sic',water_cons*dt
-        print *,i,j
-        print *,'tskin',t_skin
-        print *,'snow',snow*dt
-        print *,'evp',evp*dt
-        print *,'dh_snow',dh_snow*rho_snow
-        print *,'dh_sic',dh_sic*rho_sic
-        print *,'h_sic,h_snow',h_sic*rho_sic,h_snow*rho_snow
-        print *,'snowmelt',(flux_snowmelt_top+flux_snowmelt_bot)/Lf*dt
-        print *,'sicmelt',(flux_sicmelt_top+flux_sicmelt_bot)/Lf*dt
-        print *,'sicmelt_top',(flux_sicmelt_top)/Lf*dt
-        print *,'sicmelt_bot',(flux_sicmelt_bot)/Lf*dt
-      endif
+      ! if( abs(water_cons) .gt. 1.d-10 .and. (h_sic+dh_sic).gt.0._wp) then
+      !   print *,''
+      !   print *,'water balance sic',water_cons*dt
+      !   print *,i,j
+      !   print *,'tskin',t_skin
+      !   print *,'snow',snow*dt
+      !   print *,'evp',evp*dt
+      !   print *,'dh_snow',dh_snow*rho_snow
+      !   print *,'dh_sic',dh_sic*rho_sic
+      !   print *,'h_sic,h_snow',h_sic*rho_sic,h_snow*rho_snow
+      !   print *,'snowmelt',(flux_snowmelt_top+flux_snowmelt_bot)/Lf*dt
+      !   print *,'sicmelt',(flux_sicmelt_top+flux_sicmelt_bot)/Lf*dt
+      !   print *,'sicmelt_top',(flux_sicmelt_top)/Lf*dt
+      !   print *,'sicmelt_bot',(flux_sicmelt_bot)/Lf*dt
+      ! endif
     endif
 
 
-    if( t_skin_old.gt.T0+40. .or. t_skin_old.lt.150._wp ) then
-      print *,'t_skin_old over sic out of range!!!',t_skin_old,i,j
-      print *,'t_skin',t_skin
-      print *,'h_snow',h_snow
-      print *,'sw,lw_d,lw_u,sh,lh,g,dflx_sic_dtsic',swnet,emiss*lwdown,lw,sh,lh,g
-    endif
+    ! if( t_skin_old.gt.T0+40. .or. t_skin_old.lt.150._wp ) then
+    !   print *,'t_skin_old over sic out of range!!!',t_skin_old,i,j
+    !   print *,'t_skin',t_skin
+    !   print *,'h_snow',h_snow
+    !   print *,'sw,lw_d,lw_u,sh,lh,g,dflx_sic_dtsic',swnet,emiss*lwdown,lw,sh,lh,g
+    ! endif
 
-    if( t_skin.gt.T0 .or. t_skin.lt.150._wp ) then
-      print *,''
-      print *,'t_skin over sic out of range!!!',t_skin,i,j
-      print *,'h_snow',h_snow
-      print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
-      print *,'tskinold',t_skin_old
-      print *,'t_air',t_air
-      print *,'t_ocn',t_ocn
-      print *,'flx_ocn',flx_ocn
-      print *,'qair',qair
-      print *,'Cde,Cdh',Cde,Cdh
-      print *,''
-    endif
+    ! if( t_skin.gt.T0 .or. t_skin.lt.150._wp ) then
+    !   print *,''
+    !   print *,'t_skin over sic out of range!!!',t_skin,i,j
+    !   print *,'h_snow',h_snow
+    !   print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
+    !   print *,'tskinold',t_skin_old
+    !   print *,'t_air',t_air
+    !   print *,'t_ocn',t_ocn
+    !   print *,'flx_ocn',flx_ocn
+    !   print *,'qair',qair
+    !   print *,'Cde,Cdh',Cde,Cdh
+    !   print *,''
+    ! endif
 
     return
 

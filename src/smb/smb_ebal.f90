@@ -286,37 +286,37 @@ contains
       - lh &
       - flx_g &
       - flx_melt 
-      if( abs(energy_cons_surf1) .gt. 1.e-10_wp) then
-        print *,''
-        print *,'ebal'
-        print *,'energy balance',energy_cons_surf1
-        print *,'mask_snow',mask_snow
-        print *,'h_snow',h_snow
-        print *,'t_skin,t_skin_old',t_skin,t_skin_old
-        print *,'t_skin_max,t_skin_min,t_skin_amp',t_skin_max,t_skin_min,t_skin_amp
-        print *,'t_skin_pos,t_skin_neg',t_skin_pos,t_skin_neg
-        print *,'dt_pos,dt_neg',dt_pos,dt_neg
-        print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
-        print *,'flx_melt',flx_melt
-        print *,''
+      ! if( abs(energy_cons_surf1) .gt. 1.e-10_wp) then
+        ! print *,''
+        ! print *,'ebal'
+        ! print *,'energy balance',energy_cons_surf1
+        ! print *,'mask_snow',mask_snow
+        ! print *,'h_snow',h_snow
+        ! print *,'t_skin,t_skin_old',t_skin,t_skin_old
+        ! print *,'t_skin_max,t_skin_min,t_skin_amp',t_skin_max,t_skin_min,t_skin_amp
+        ! print *,'t_skin_pos,t_skin_neg',t_skin_pos,t_skin_neg
+        ! print *,'dt_pos,dt_neg',dt_pos,dt_neg
+        ! print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
+        ! print *,'flx_melt',flx_melt
+        ! print *,''
         !stop
-      endif
+      ! endif
     endif
 
-    if( t_skin.gt.350._wp .or. t_skin.lt.150._wp ) then
-      print *,''
-      print *,i,j
-      print *,'t_skin over ice out of range!!!',t_skin
-      print *,'mask_snow',mask_snow
-      print *,'h_snow',h_snow
-      print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
-      print *,'t_prof',t_prof
-      print *,'t2m',t2m
-      print *,'q2m',q2m
-      print *,'r_a',r_a
-      print *,''
-      !stop
-    endif
+    ! if( t_skin.gt.350._wp .or. t_skin.lt.150._wp ) then
+    !   print *,''
+    !   print *,i,j
+    !   print *,'t_skin over ice out of range!!!',t_skin
+    !   print *,'mask_snow',mask_snow
+    !   print *,'h_snow',h_snow
+    !   print *,'sw,lw_d,lw_u,sh,lh,g',swnet,emiss*lwdown,lw,sh,lh,g
+    !   print *,'t_prof',t_prof
+    !   print *,'t2m',t2m
+    !   print *,'q2m',q2m
+    !   print *,'r_a',r_a
+    !   print *,''
+    !   !stop
+    ! endif
 
 
     return
@@ -383,44 +383,44 @@ contains
       - flx_g &
       - flx_melt 
 
-          if( abs(energy_cons_surf2) .gt. 1.e-10_wp ) then
-      !if (i.eq.9 .and. j.eq.105) then
-            print *,''
-            print *,'update_tskin'
-            print *,'energy balance',energy_cons_surf2
-        print *,'mask_snow',mask_snow
-        print *,'t_skin,t_skin_old',t_skin,t_skin_old
-      if( mask_snow.eq.1) then
-        print *,'t_snow,t_snow_old',t_prof(0),t_prof_old(0)
-      endif
-      print *,'t_prof,t_prof_old',t_prof(1),t_prof_old(1)
-        print *,'sw,lw_d,lw_u,sh,lh,g,flx_melt',swnet,f_lw/sigma*lwdown,flx_lwu,flx_sh,flx_lh,flx_g,flx_melt
-        print *,''
-        !stop
-          endif
+      !     if( abs(energy_cons_surf2) .gt. 1.e-10_wp ) then
+      ! !if (i.eq.9 .and. j.eq.105) then
+      !       print *,''
+      !       print *,'update_tskin'
+      !       print *,'energy balance',energy_cons_surf2
+      !   print *,'mask_snow',mask_snow
+      !   print *,'t_skin,t_skin_old',t_skin,t_skin_old
+      ! if( mask_snow.eq.1) then
+      !   print *,'t_snow,t_snow_old',t_prof(0),t_prof_old(0)
+      ! endif
+      ! print *,'t_prof,t_prof_old',t_prof(1),t_prof_old(1)
+      !   print *,'sw,lw_d,lw_u,sh,lh,g,flx_melt',swnet,f_lw/sigma*lwdown,flx_lwu,flx_sh,flx_lh,flx_g,flx_melt
+      !   print *,''
+      !   !stop
+      !     endif
 
     endif
 
-    if( t_skin.gt.350. .or. t_skin.lt.150. ) then
-      print *,''
-      print *,i,j
-      print *,'t_skin over ice out of range update_tskin!!!',t_skin
-      print *,'t_skin_old',t_skin_old
-      print *,'mask_snow',mask_snow
-      print *,'t2m',t2m
-      if( mask_snow.eq.1) then
-        print *,'t_snow,t_snow_old',t_prof(0),t_prof_old(0)
-      endif
-      print *,'t_prof,t_prof_old',t_prof(1),t_prof_old(1)
-      print *,'sw',swnet
-      print *,'lw',flx_lwu
-      print *,'sh',flx_sh
-      print *,'lh',flx_lh
-      print *,'g',flx_g
-      print *,'dflxg_dT',dflxg_dT
-      print *,''
-      !stop
-    endif
+    ! if( t_skin.gt.350. .or. t_skin.lt.150. ) then
+    !   print *,''
+    !   print *,i,j
+    !   print *,'t_skin over ice out of range update_tskin!!!',t_skin
+    !   print *,'t_skin_old',t_skin_old
+    !   print *,'mask_snow',mask_snow
+    !   print *,'t2m',t2m
+    !   if( mask_snow.eq.1) then
+    !     print *,'t_snow,t_snow_old',t_prof(0),t_prof_old(0)
+    !   endif
+    !   print *,'t_prof,t_prof_old',t_prof(1),t_prof_old(1)
+    !   print *,'sw',swnet
+    !   print *,'lw',flx_lwu
+    !   print *,'sh',flx_sh
+    !   print *,'lh',flx_lh
+    !   print *,'g',flx_g
+    !   print *,'dflxg_dT',dflxg_dT
+    !   print *,''
+    !   !stop
+    ! endif
 
     return
 

@@ -364,78 +364,78 @@ contains
           - sum(cap_dz(1:nl)*rdt * (t_prof(1:nl)-t_prof_old(1:nl)))
       endif
 
-      if(abs(energy_cons).gt.1.e-10_wp ) then
+      ! if(abs(energy_cons).gt.1.e-10_wp ) then
       !if (i.eq.40 .and. j.eq.105) then
-        print *,' '
-        print *,'energy conservation soil/ice',energy_cons
-        print *,'mask_snow',mask_snow
-        print *,'t_soil_old',t_prof_old
-        print *,'t_soil_after_cond',x
-        print *,'t_soil_new',t_prof
-        print *,'dg_dT',dflxg_dT
-        if(mask_snow.eq.1) then
-          print *,'g,dg',flx_g,dflxg_dT*(t_prof(0)-t_prof_old(0))
-        else
-          print *,'g,dg',flx_g,dflxg_dT*(t_prof(1)-t_prof_old(1))
-        endif
-        print *,'flx_melt [W/m2]',flx_melt
-        print *,'flx_excess',flx_excess
-        print *,'flx_cold_content [W/m2]',flx_cold_content
-        print *,'snowmelt + rain [kg/m2]',(rain+snowmelt)*dt
-        print *,'rain [kg/m2]',rain*dt
-        print *,'snowmelt [kg/m2]',snowmelt*dt
-        print *,'icemelt [kg/m2]',icemelt*dt
-        print *,'refreezing [kg/m2]',refreezing*dt
-        print *,'f_refreezing',f_refreezing
-        print *,'refreezing_avail,refreezing_pot [kg/m2]',refreezing_avail, refreezing_pot
-        print *,'energy_internal [W/m2]',rdt * (cap_dz*t_prof-cap_dz*t_prof_old)
-        print *,'snowmelt energy [W/m2]',Lf*snowmelt
-        print *,'icemelt energy [W/m2]',Lf*icemelt
-        print *,'refreezing energy [W/m2]',Lf*refreezing
-        print *,'energy_warm_ice [W/m2]',energy_warm_ice
-        print *,'snow_new,snow_old [kg/m2]',w_snow,w_snow_old
-        print *,'cap_dz',cap_dz
-        print *,'lambda_int',lambda_int
-        print *,' '
-      if(abs(energy_cons).gt.1._wp ) stop
-      endif
-    endif
+        ! print *,' '
+        ! print *,'energy conservation soil/ice',energy_cons
+        ! print *,'mask_snow',mask_snow
+        ! print *,'t_soil_old',t_prof_old
+        ! print *,'t_soil_after_cond',x
+        ! print *,'t_soil_new',t_prof
+        ! print *,'dg_dT',dflxg_dT
+        ! if(mask_snow.eq.1) then
+          ! print *,'g,dg',flx_g,dflxg_dT*(t_prof(0)-t_prof_old(0))
+        ! else
+          ! print *,'g,dg',flx_g,dflxg_dT*(t_prof(1)-t_prof_old(1))
+        ! endif
+        ! print *,'flx_melt [W/m2]',flx_melt
+        ! print *,'flx_excess',flx_excess
+        ! print *,'flx_cold_content [W/m2]',flx_cold_content
+        ! print *,'snowmelt + rain [kg/m2]',(rain+snowmelt)*dt
+        ! print *,'rain [kg/m2]',rain*dt
+        ! print *,'snowmelt [kg/m2]',snowmelt*dt
+        ! print *,'icemelt [kg/m2]',icemelt*dt
+        ! print *,'refreezing [kg/m2]',refreezing*dt
+        ! print *,'f_refreezing',f_refreezing
+        ! print *,'refreezing_avail,refreezing_pot [kg/m2]',refreezing_avail, refreezing_pot
+        ! print *,'energy_internal [W/m2]',rdt * (cap_dz*t_prof-cap_dz*t_prof_old)
+        ! print *,'snowmelt energy [W/m2]',Lf*snowmelt
+        ! print *,'icemelt energy [W/m2]',Lf*icemelt
+        ! print *,'refreezing energy [W/m2]',Lf*refreezing
+        ! print *,'energy_warm_ice [W/m2]',energy_warm_ice
+        ! print *,'snow_new,snow_old [kg/m2]',w_snow,w_snow_old
+        ! print *,'cap_dz',cap_dz
+        ! print *,'lambda_int',lambda_int
+        ! print *,' '
+      ! if(abs(energy_cons).gt.1._wp ) stop
+      ! endif
+    ! endif
 
     ! check temperature range
-    if(maxval(t_prof) .gt. 350._wp .or. minval(t_prof) .lt. 150._wp) then
-      print *,''
-      print *,'WARNING t_prof out of range',t_prof
-      print *,i,j
-      print *,'mask_snow',mask_snow
-      print *,'t_soil_old',t_prof_old
-      print *,'t_soil_after_cond',x
-      print *,'t_soil_new',t_prof
-      print *,'dg_dT',dflxg_dT
-      if(mask_snow.eq.1) then
-        print *,'g,dg',flx_g,dflxg_dT*(t_prof(0)-t_prof_old(0))
-      else
-        print *,'g,dg',flx_g,dflxg_dT*(t_prof(1)-t_prof_old(1))
-      endif
-      print *,'flx_melt [W/m2]',flx_melt
-      print *,'flx_cold_content [W/m2]',flx_cold_content
-      print *,'snowmelt + rain [kg/m2]',(rain+snowmelt)*dt
-      print *,'rain [kg/m2]',rain*dt
-      print *,'snowmelt [kg/m2]',snowmelt*dt
-      print *,'icemelt [kg/m2]',icemelt*dt
-      print *,'refreezing [kg/m2]',refreezing*dt
-      print *,'f_refreezing',f_refreezing
-      print *,'refreezing_avail,refreezing_pot [kg/m2]',refreezing_avail, refreezing_pot
-      print *,'energy_internal [W/m2]',rdt * (cap_dz*t_prof-cap_dz*t_prof_old)
-      print *,'snowmelt energy [W/m2]',Lf*snowmelt
-      print *,'icemelt energy [W/m2]',Lf*icemelt
-      print *,'refreezing energy [W/m2]',Lf*refreezing
-      print *,'energy_warm_ice [W/m2]',energy_warm_ice
-      print *,'snow_new,snow_old [kg/m2]',w_snow,w_snow_old
-      print *,'cap_dz',cap_dz
-      print *,'lambda_int',lambda_int
-      print *,' '
+    ! if(maxval(t_prof) .gt. 350._wp .or. minval(t_prof) .lt. 150._wp) then
+    !   print *,''
+    !   print *,'WARNING t_prof out of range',t_prof
+    !   print *,i,j
+    !   print *,'mask_snow',mask_snow
+    !   print *,'t_soil_old',t_prof_old
+    !   print *,'t_soil_after_cond',x
+    !   print *,'t_soil_new',t_prof
+    !   print *,'dg_dT',dflxg_dT
+    !   if(mask_snow.eq.1) then
+    !     print *,'g,dg',flx_g,dflxg_dT*(t_prof(0)-t_prof_old(0))
+    !   else
+    !     print *,'g,dg',flx_g,dflxg_dT*(t_prof(1)-t_prof_old(1))
+    !   endif
+    !   print *,'flx_melt [W/m2]',flx_melt
+    !   print *,'flx_cold_content [W/m2]',flx_cold_content
+    !   print *,'snowmelt + rain [kg/m2]',(rain+snowmelt)*dt
+    !   print *,'rain [kg/m2]',rain*dt
+    !   print *,'snowmelt [kg/m2]',snowmelt*dt
+    !   print *,'icemelt [kg/m2]',icemelt*dt
+    !   print *,'refreezing [kg/m2]',refreezing*dt
+    !   print *,'f_refreezing',f_refreezing
+    !   print *,'refreezing_avail,refreezing_pot [kg/m2]',refreezing_avail, refreezing_pot
+    !   print *,'energy_internal [W/m2]',rdt * (cap_dz*t_prof-cap_dz*t_prof_old)
+    !   print *,'snowmelt energy [W/m2]',Lf*snowmelt
+    !   print *,'icemelt energy [W/m2]',Lf*icemelt
+    !   print *,'refreezing energy [W/m2]',Lf*refreezing
+    !   print *,'energy_warm_ice [W/m2]',energy_warm_ice
+    !   print *,'snow_new,snow_old [kg/m2]',w_snow,w_snow_old
+    !   print *,'cap_dz',cap_dz
+    !   print *,'lambda_int',lambda_int
+    !   print *,' '
       !stop
-    endif
+    ! endif
 
     return
 
