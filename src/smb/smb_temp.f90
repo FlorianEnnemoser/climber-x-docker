@@ -399,7 +399,7 @@ contains
         ! print *,' '
       ! if(abs(energy_cons).gt.1._wp ) stop
       ! endif
-    ! endif
+    endif
 
     ! check temperature range
     ! if(maxval(t_prof) .gt. 350._wp .or. minval(t_prof) .lt. 150._wp) then
