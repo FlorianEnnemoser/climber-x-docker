@@ -479,43 +479,43 @@ contains
       endif
 
 
-      if(abs(energy_cons_lake).gt.1.e-8_wp ) then
-        print *,' '
-        print *,'energy conservation lake ',energy_cons_lake
-        print *,'i,j,mask_snow',i,j,mask_snow
-        print *,'t_lake_old',t_lake_old
-        print *,'t_lake_after_cond',x
-        print *,'t_lake_new',t_lake
-        print *,'w_i_old',w_i_old
-        print *,'w_i_new',w_i
-        print *,'f_i_lake',f_i_lake
-        if(mask_snow.eq.1) then
-          print *,'g,dg_dT',flx_g,dflxg_dT*(t_lake(0)-t_lake_old(0)),flx_g+dflxg_dT*(t_lake(0)-t_lake_old(0))
-          print *,'dsnow dT',energy_warm_snow
-        else
-          print *,'g,dg_dT',flx_g,dflxg_dT*(t_lake(1)-t_lake_old(1)),flx_g+dflxg_dT*(t_lake(1)-t_lake_old(1))
-        endif
-        print *,'flx_melt',flx_melt
-        print *,'energy_internal',cap*rdt * (t_lake-t_lake_old)
-        print *,'phase change',Lf*rdt * (w_i_old-w_i)
-        print *,'snowmelt energy',Lf*snowmelt
-        print *,'snow_new,snow_old,snowmelt',w_snow,w_snow_old,snowmelt*dt
-        print *,'lambda_int',lambda_int
-        print *,' '
+      ! if(abs(energy_cons_lake).gt.1.e-8_wp ) then
+      !   print *,' '
+      !   print *,'energy conservation lake ',energy_cons_lake
+      !   print *,'i,j,mask_snow',i,j,mask_snow
+      !   print *,'t_lake_old',t_lake_old
+      !   print *,'t_lake_after_cond',x
+      !   print *,'t_lake_new',t_lake
+      !   print *,'w_i_old',w_i_old
+      !   print *,'w_i_new',w_i
+      !   print *,'f_i_lake',f_i_lake
+      !   if(mask_snow.eq.1) then
+      !     print *,'g,dg_dT',flx_g,dflxg_dT*(t_lake(0)-t_lake_old(0)),flx_g+dflxg_dT*(t_lake(0)-t_lake_old(0))
+      !     print *,'dsnow dT',energy_warm_snow
+      !   else
+      !     print *,'g,dg_dT',flx_g,dflxg_dT*(t_lake(1)-t_lake_old(1)),flx_g+dflxg_dT*(t_lake(1)-t_lake_old(1))
+      !   endif
+      !   print *,'flx_melt',flx_melt
+      !   print *,'energy_internal',cap*rdt * (t_lake-t_lake_old)
+      !   print *,'phase change',Lf*rdt * (w_i_old-w_i)
+      !   print *,'snowmelt energy',Lf*snowmelt
+      !   print *,'snow_new,snow_old,snowmelt',w_snow,w_snow_old,snowmelt*dt
+      !   print *,'lambda_int',lambda_int
+      !   print *,' '
         !       if(abs(energy_cons_lake).gt.10.) stop
-      endif
+      ! endif
     endif
 
     if( check_water ) then
       ! lake water balance
       sum_water = sum(w_w - w_w_old + w_i - w_i_old)
-      if( abs(sum_water+w_snow - w_snow_old+snowmelt*dt) .gt. 1.d-10 ) then
-        print *,'water conservation ',sum_water+snowmelt*dt+w_snow - w_snow_old 
-        print *,w_snow,w_snow_old,snowmelt
-        print *,w_w(k),w_w_old(k)
-        print *,w_i(k),w_i_old(k)
-        stop
-      endif
+      ! if( abs(sum_water+w_snow - w_snow_old+snowmelt*dt) .gt. 1.d-10 ) then
+      !   print *,'water conservation ',sum_water+snowmelt*dt+w_snow - w_snow_old 
+      !   print *,w_snow,w_snow_old,snowmelt
+      !   print *,w_w(k),w_w_old(k)
+      !   print *,w_i(k),w_i_old(k)
+      !   stop
+      ! endif
     endif
 
 

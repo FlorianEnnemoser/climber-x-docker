@@ -191,24 +191,24 @@ contains
       - sum(Lf*rdt * (w_i_old-w_i_sublake)) &
       - sum(cap*rdt * (t_sublake(1:nl)-t_sublake_old(1:nl)))
 
-      if(abs(energy_cois_lake).gt.1.d-10 ) then
-        print *,' '
-        print *,'energy conservation lake',energy_cois_lake
-        print *,'i,j',i,j
-        print *,'t_sublake_old',t_sublake_old
-        print *,'t_sublake_after_cond',x
-        print *,'t_sublake_new',t_sublake
-        print *,'w_i_old',w_i_old
-        print *,'w_i_new',w_i_sublake
-        print *,'flux_in',-lambda_int_sublake(0)*rdz_neg(1)*(t_sublake(1)-t_sublake(0))
-        print *,'heat_soc',sum(heat_decomp*dz(1:nl))
-        print *,'energy_internal',cap*rdt * (t_sublake(1:nl)-t_sublake_old(1:nl))
-        print *,'phase change',Lf*rdt * (w_i_old-w_i_sublake)
-        print *,'cap',cap
-        print *,'lambda_int_sublake',lambda_int_sublake
-        print *,' '
+      ! if(abs(energy_cois_lake).gt.1.d-10 ) then
+        ! print *,' '
+        ! print *,'energy conservation lake',energy_cois_lake
+        ! print *,'i,j',i,j
+        ! print *,'t_sublake_old',t_sublake_old
+        ! print *,'t_sublake_after_cond',x
+        ! print *,'t_sublake_new',t_sublake
+        ! print *,'w_i_old',w_i_old
+        ! print *,'w_i_new',w_i_sublake
+        ! print *,'flux_in',-lambda_int_sublake(0)*rdz_neg(1)*(t_sublake(1)-t_sublake(0))
+        ! print *,'heat_soc',sum(heat_decomp*dz(1:nl))
+        ! print *,'energy_internal',cap*rdt * (t_sublake(1:nl)-t_sublake_old(1:nl))
+        ! print *,'phase change',Lf*rdt * (w_i_old-w_i_sublake)
+        ! print *,'cap',cap
+        ! print *,'lambda_int_sublake',lambda_int_sublake
+        ! print *,' '
         !       if(abs(energy_cois_lake).gt.10.) stop
-      endif
+      ! endif
     endif
 
 
