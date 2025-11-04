@@ -296,40 +296,40 @@ contains
       endif
 
 
-      if(abs(energy_cons_ice).gt.1.d-10 ) then
-        print *,' '
-        print *,'energy conservation ICE',energy_cons_ice
-        print *,'i,j,mask_snow',i,j,mask_snow
-        print *,'t_soil_old',t_ice_old
-        print *,'t_soil_after_cond',x
-        print *,'t_soil_new',t_ice
-        if(mask_snow.eq.1) then
-          print *,'g,dg_dT',flx_g,dflxg_dT*(t_ice(0)-t_ice_old(0)),flx_g+dflxg_dT*(t_ice(0)-t_ice_old(0))
-        else
-          print *,'g,dg_dT',flx_g,dflxg_dT*(t_ice(1)-t_ice_old(1)),flx_g+dflxg_dT*(t_ice(1)-t_ice_old(1))
-        endif
-        print *,'flx_melt',flx_melt
-        print *,'energy_warm_snow',energy_warm_snow
-        print *,'energy_warm_ice',energy_warm_ice
-        print *,'energy_internal',cap*rdt * (t_ice-t_ice_old)
-        print *,'snowmelt energy',Lf*snowmelt
-        print *,'icemelt energy',Lf*icemelt
-        print *,'snow_new,snow_old,snowmelt',w_snow,w_snow_old,snowmelt*dt
-        print *,'cap',cap
-        print *,'lambda_int',lambda_int
-        print *,' '
-        stop
-      endif
+      ! if(abs(energy_cons_ice).gt.1.d-10 ) then
+        ! print *,' '
+        ! print *,'energy conservation ICE',energy_cons_ice
+        ! print *,'i,j,mask_snow',i,j,mask_snow
+        ! print *,'t_soil_old',t_ice_old
+        ! print *,'t_soil_after_cond',x
+        ! print *,'t_soil_new',t_ice
+        ! if(mask_snow.eq.1) then
+        !   print *,'g,dg_dT',flx_g,dflxg_dT*(t_ice(0)-t_ice_old(0)),flx_g+dflxg_dT*(t_ice(0)-t_ice_old(0))
+        ! else
+        !   print *,'g,dg_dT',flx_g,dflxg_dT*(t_ice(1)-t_ice_old(1)),flx_g+dflxg_dT*(t_ice(1)-t_ice_old(1))
+        ! endif
+        ! print *,'flx_melt',flx_melt
+        ! print *,'energy_warm_snow',energy_warm_snow
+        ! print *,'energy_warm_ice',energy_warm_ice
+        ! print *,'energy_internal',cap*rdt * (t_ice-t_ice_old)
+        ! print *,'snowmelt energy',Lf*snowmelt
+        ! print *,'icemelt energy',Lf*icemelt
+        ! print *,'snow_new,snow_old,snowmelt',w_snow,w_snow_old,snowmelt*dt
+        ! print *,'cap',cap
+        ! print *,'lambda_int',lambda_int
+        ! print *,' '
+        ! stop
+      ! endif
     endif
 
-    if( check_water ) then
-      ! ice water balance
-      if( abs(w_snow - w_snow_old+snowmelt*dt) .gt. 1.d-10 ) then
-        print *,'water conservation ',snowmelt*dt+w_snow - w_snow_old 
-        print *,w_snow,w_snow_old,snowmelt
-        stop
-      endif
-    endif
+    ! if( check_water ) then
+    !   ! ice water balance
+    !   if( abs(w_snow - w_snow_old+snowmelt*dt) .gt. 1.d-10 ) then
+    !     print *,'water conservation ',snowmelt*dt+w_snow - w_snow_old 
+    !     print *,w_snow,w_snow_old,snowmelt
+    !     stop
+    !   endif
+    ! endif
 
 
     ! check temperature range

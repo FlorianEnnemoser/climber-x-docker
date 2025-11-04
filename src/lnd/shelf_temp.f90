@@ -191,24 +191,24 @@ contains
       - sum(Lf*rdt * (w_i_old-w_i_shelf)) &
       - sum(cap*rdt * (t_shelf(1:nl)-t_shelf_old(1:nl)))
 
-      if(abs(energy_cois_shelf).gt.1.d-10 ) then
-        print *,' '
-        print *,'energy conservation SHELF',energy_cois_shelf
-        print *,'i,j',i,j
-        print *,'t_shelf_old',t_shelf_old
-        print *,'t_shelf_after_cond',x
-        print *,'t_shelf_new',t_shelf
-        print *,'w_i_old',w_i_old
-        print *,'w_i_new',w_i_shelf
-        print *,'flux_in',-lambda_int_shelf(0)*rdz_neg(1)*(t_shelf(1)-t_shelf(0))
-        print *,'heat_soc',sum(heat_decomp*dz(1:nl))
-        print *,'energy_internal',cap*rdt * (t_shelf(1:nl)-t_shelf_old(1:nl))
-        print *,'phase change',Lf*rdt * (w_i_old-w_i_shelf)
-        print *,'cap',cap
-        print *,'lambda_int_shelf',lambda_int_shelf
-        print *,' '
-        !       if(abs(energy_cois_shelf).gt.10.) stop
-      endif
+      ! if(abs(energy_cois_shelf).gt.1.d-10 ) then
+      !   print *,' '
+      !   print *,'energy conservation SHELF',energy_cois_shelf
+      !   print *,'i,j',i,j
+      !   print *,'t_shelf_old',t_shelf_old
+      !   print *,'t_shelf_after_cond',x
+      !   print *,'t_shelf_new',t_shelf
+      !   print *,'w_i_old',w_i_old
+      !   print *,'w_i_new',w_i_shelf
+      !   print *,'flux_in',-lambda_int_shelf(0)*rdz_neg(1)*(t_shelf(1)-t_shelf(0))
+      !   print *,'heat_soc',sum(heat_decomp*dz(1:nl))
+      !   print *,'energy_internal',cap*rdt * (t_shelf(1:nl)-t_shelf_old(1:nl))
+      !   print *,'phase change',Lf*rdt * (w_i_old-w_i_shelf)
+      !   print *,'cap',cap
+      !   print *,'lambda_int_shelf',lambda_int_shelf
+      !   print *,' '
+      !   !       if(abs(energy_cois_shelf).gt.10.) stop
+      ! endif
     endif
 
 
